@@ -4,8 +4,10 @@ import time
 import ImageProcessing as IP
 import Debug
 
+launcherWindowTitle = "BlissScape 718"
 maxWaitTime = 15.0
-hasLauncher = False
+hasLauncher = True
+
 
 def main():
     
@@ -24,12 +26,15 @@ def main():
    
 
     if(hasLauncher):
+        launcherHWND = None
         #waiting till maxWaitTime for the windows to open
         startTime = time.time()
         elapsedTime = time.time() - startTime
         launched = False
         while(elapsedTime <= maxWaitTime):
-            if(IP.DoesWindowExist("BlissScape 718")):
+           
+            if(IP.DoesWindowExist(launcherWindowTitle)):                
+                launcherHWND = IP.GetHwndByName(launcherWindowTitle)
                 Debug.BMLog("Launcher Opened")
                 launched = True
                 break
@@ -41,6 +46,9 @@ def main():
         if(launched == False):
             Debug.BMLog("Launcher didn't start in maximum alloted time. Ending program")
             return
+        
+
+
         
     Debug.BMLog("Continuing program")
     
